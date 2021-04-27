@@ -12,7 +12,7 @@ For generate java classes, you can use Json file with attributes in tree nodes.
   "name": "MyClass",
   "encapsulation_class": "public",
   "author": "Leonardo Elias de Oliveira",
-  "class_annotations": [
+  "annotations_class": [
     {
       "name": "br.com.annotations.MyAnotation",
       "attributes": [
@@ -25,14 +25,58 @@ For generate java classes, you can use Json file with attributes in tree nodes.
   ],
   "extends_classes": ["br.com.methods.OtherClass"],
   "interfaces": ["br.com.interfaces.IMy"],
-  "childs": [
+  "methods": [
     {
-      "type": "method",
       "name": "myMethod",
       "encapsulation": "public",
-      "returnType": "br.com.type.String"
+      "returnType": "br.com.type.String",
+      "annotations": [
+        {
+          "name": "br.com.annotations.MyAnotation",
+          "attributes": [
+            {
+              "name": "admin",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "type": "br.com.type.Test",
+          "name": "test"
+        }
+      ]
     }
-  ]
+  ],
+  "attributes": [
+    {
+      "name": "myOwnAttribute",
+      "encapsulation": "private",
+      "type": "br.com.type.String",
+      "getters": true,
+      "setters": true,
+      "annotations": [
+        {
+          "name": "br.com.annotations.MyAnotation",
+          "attributes": [
+            {
+              "name": "admin",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "type": "br.com.type.Test",
+          "name": "test"
+        }
+      ]
+    }
+  ],
+  "allArgsConstructor": true,
+  "constructorNoArgs": true
 }
 ```
 

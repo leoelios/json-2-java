@@ -1,3 +1,3 @@
-const JsonToJava = require('./JsonToJava');
+const JsonToJava = require('./commands/JsonToJava');
 
 module.exports = [JsonToJava];

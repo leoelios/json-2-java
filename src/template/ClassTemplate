@@ -7,13 +7,13 @@ package #{PACKAGE}#;
  * 
  * @Author #{AUTHOR}#
  */
-#{CLASS_ANNOTATIONS}#
+#{ANNOTATIONS_CLASS}#
 #{ENCAPSULATION_CLASS}# class #{NAME}# extends #{EXTENDS_CLASSES}# implements #{INTERFACES}# {
 
-  #{ATTRIBUTES}#
+#{ATTRIBUTES}#
 
-  #{METHODS}#
+#{CONSTRUCTORS}#
 
-  #{INTERNAL_METHODS}#
+#{INTERNAL_METHODS}#
   
 }
