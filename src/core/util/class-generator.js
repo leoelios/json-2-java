@@ -52,6 +52,7 @@ const processConstructors = ({
   attributes,
   allArgsConstructor,
   constructorNoArgs,
+  defaultConstructor,
   package,
 }) => {
   const lines = [];
@@ -63,7 +64,9 @@ const processConstructors = ({
   }
 
   if (constructorNoArgs) {
-    lines.push(`${SPACE}public ${name}() { }`);
+    lines.push(`${SPACE}public ${name}() {`);
+    lines.push(`${SPACE}${SPACE}${defaultConstructor.content}`);
+    lines.push(`${SPACE}}`);
     lines.push(SPACE);
   }
 
@@ -219,6 +222,56 @@ const processRelationships = ({ extends_classes, interfaces, package }) => {
   };
 };
 
+const processMethod = ({
+  encapsulation,
+  returnType,
+  name,
+  content,
+  parameters,
+  annotations,
+  package,
+  throws,
+}) => {
+  const lines = [];
+
+  parameters.forEach(p =>
+    addImport({
+      artifact: p.type,
+      classPackage: package,
+    })
+  );
+
+  addImport({
+    artifact: returnType,
+    classPackage: package,
+  });
+
+  const formated_parameters = parameters
+    .map(p => `${extractType(p.type)} ${p.name}`)
+    .join(', ');
+
+  lines.push(
+    `${SPACE}${encapsulation} ${extractType(
+      returnType
+    )} ${name}(${formated_parameters}) ${
+      (throws && `throws ${throws}`) || ''
+    } {`
+  );
+
+  lines.push(`${SPACE}${SPACE}${content}`);
+  lines.push(`${SPACE}}`);
+
+  return SPACE.concat(processAnnotations({ annotations, package }))
+    .concat('\n')
+    .concat(lines.join('\n'));
+};
+
+const processMethods = ({ methods, package }) => {
+  return methods
+    .map(method => processMethod({ ...method, package }))
+    .join('\n\n');
+};
+
 module.exports = {
   processConstructors,
   processAttribute,
@@ -226,5 +279,7 @@ module.exports = {
   processAttributes,
   processAnnotations,
   processRelationships,
+  processMethod,
+  processMethods,
   imports: _imports,
 };

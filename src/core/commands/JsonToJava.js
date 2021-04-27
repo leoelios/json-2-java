@@ -5,25 +5,15 @@ const {
   processAttributes,
   processAnnotations,
   processRelationships,
+  processMethods,
 } = require('../util/class-generator');
-const { getFileJson, getFileContent } = require('../util/file-manipulator');
+const {
+  getFileJson,
+  getFileContent,
+  writeFile,
+} = require('../util/file-manipulator');
 
 const action = (json_filepath, java_output_filepath) => {
-  const _imports = new Set();
-
-  /**
-   * Receive JSON schema method and return string code JAVA equivalent.
-   * @param {*} schema
-   */
-  const processMethod = schema => {};
-
-  /**
-   * Process the extends classes, implemented interfaces
-   * and generate string code equivalent.
-   * @param {*} classes
-   */
-  const processUsageClasses = classes => {};
-
   /**
    * Receive json schema and generate java class equivalent.
    * @param {*} param0
@@ -53,6 +43,7 @@ const action = (json_filepath, java_output_filepath) => {
       extends_classes,
       interfaces,
       name,
+      methods: processMethods(json_schema),
       imports: processImports(),
     };
   };
@@ -68,10 +59,14 @@ const action = (json_filepath, java_output_filepath) => {
       throw new Error('Some of args is blank, please, pass this.');
     }
 
-    const generated_java = processJavaClass(getFileJson(json_filepath));
+    const file_content = getFileJson(json_filepath);
+    const generated_java = processJavaClass(file_content);
     const template = getFileContent('./src/template/ClassTemplate');
 
-    console.log(contentReplacer(template, generated_java));
+    writeFile({
+      file_path: `./out/${file_content.name}.java`,
+      content: contentReplacer(template, generated_java),
+    });
   } catch (e) {
     console.error(e);
   }

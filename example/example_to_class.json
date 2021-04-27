@@ -21,15 +21,11 @@
       "name": "myMethod",
       "encapsulation": "public",
       "returnType": "br.com.type.String",
+      "throws": "ValidacaoException",
       "annotations": [
         {
           "name": "br.com.annotations.MyAnotation",
-          "attributes": [
-            {
-              "name": "admin",
-              "value": "true"
-            }
-          ]
+          "parameters": []
         }
       ],
       "parameters": [
@@ -37,7 +33,26 @@
           "type": "br.com.type.Test",
           "name": "test"
         }
-      ]
+      ],
+      "content": "// conteudo do método"
+    },
+    {
+      "name": "myMethod",
+      "encapsulation": "public",
+      "returnType": "br.com.type.String",
+      "annotations": [
+        {
+          "name": "br.com.annotations.MyAnotation",
+          "parameters": []
+        }
+      ],
+      "parameters": [
+        {
+          "type": "br.com.type.Test",
+          "name": "test"
+        }
+      ],
+      "content": "// conteudo do método"
     }
   ],
   "attributes": [
@@ -85,5 +100,8 @@
     }
   ],
   "allArgsConstructor": true,
-  "constructorNoArgs": true
+  "constructorNoArgs": true,
+  "defaultConstructor": {
+    "content": "inicializar();"
+  }
 }

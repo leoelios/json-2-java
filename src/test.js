@@ -5,6 +5,8 @@ const {
   processAttribute,
   processAttributes,
   processRelationships,
+  processMethod,
+  processMethods,
   imports,
 } = require('./core/util/class-generator');
 const exampleJson = require('../example/example_to_class.json');
@@ -45,8 +47,23 @@ const testProcessRelationships = () => {
   console.log(imports);
 };
 
+const testProcessMethod = () => {
+  console.log(
+    processMethod({ ...exampleJson.methods[0], package: exampleJson.package })
+  );
+
+  console.log(imports);
+};
+
+const testProcessMethods = () => {
+  console.log(processMethods(exampleJson));
+  console.log(imports);
+};
+
 // testContentReplacer();
 // testConstructorBuilder();
 // testProcessAttribute();
 // testProcessAttributes();
 // testProcessRelationships();
+// testProcessMethod();
+// testProcessMethods();
