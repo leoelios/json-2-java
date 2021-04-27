@@ -1,0 +1,19 @@
+package #{PACKAGE}#;
+
+#{IMPORTS}#
+
+/**
+ * Class automatic generated with json-2-java.
+ * 
+ * @Author #{AUTHOR}#
+ */
+#{CLASS_ANNOTATIONS}#
+#{ENCAPSULATION_CLASS}# class #{NAME}# extends #{EXTENDS_CLASSES}# implements #{IMPLEMENTS_CLASSES}# {
+
+  #{ATTRIBUTES}#
+
+  #{METHODS}#
+
+  #{INTERNAL_METHODS}#
+  
+}

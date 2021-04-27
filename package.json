@@ -1,0 +1,35 @@
+{
+  "name": "json-2-java",
+  "version": "1.0.0",
+  "description": "Library to convert JSON to Java code, that is, you will be able to generate JAVA codes using JSON schemas.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leoelias023/json-2-java.git"
+  },
+  "keywords": [
+    "java",
+    "json",
+    "converter",
+    "generator",
+    "gerador",
+    "conversor"
+  ],
+  "author": "Leonardo Elias de Oliveira <leoelias02@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leoelias023/json-2-java/issues"
+  },
+  "homepage": "https://github.com/leoelias023/json-2-java#readme",
+  "engines": {
+    "node": ">=v12.18.2"
+  },
+  "dependencies": {
+    "commander": "^7.2.0",
+    "fs": "0.0.1-security"
+  }
+}
