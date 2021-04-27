@@ -125,9 +125,14 @@ const processGetterSetter = ({ name, type, getters, setters }) => {
  */
 const processAnnotation = ({ name, parameters, package }) => {
   addImport({ artifact: name, classPackage: package });
-  return `@${extractType(name)}(${parameters
+
+  const parameters_formated = parameters
     ?.map(p => `${p.name} = ${p.value}`)
-    .join(', ')})`;
+    .join(', ');
+
+  return `@${extractType(name)}${
+    parameters_formated ? `(${parameters_formated})` : ''
+  }`;
 };
 
 /**

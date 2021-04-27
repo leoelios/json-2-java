@@ -1,8 +1,11 @@
 {
   "name": "json-2-java",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Library to convert JSON to Java code, that is, you will be able to generate JAVA codes using JSON schemas.",
   "main": "src/index.js",
+  "bin": {
+    "json2java": "./src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js"

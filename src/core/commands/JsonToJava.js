@@ -1,3 +1,4 @@
+const path = require('path');
 const contentReplacer = require('../global/contentReplacer');
 const {
   processConstructors,
@@ -59,12 +60,15 @@ const action = (json_filepath, java_output_filepath) => {
       throw new Error('Some of args is blank, please, pass this.');
     }
 
-    const file_content = getFileJson(json_filepath);
-    const generated_java = processJavaClass(file_content);
-    const template = getFileContent('./src/template/ClassTemplate');
+    const file_json = getFileJson(json_filepath);
+    const generated_java = processJavaClass(file_json);
+
+    const template = getFileContent(
+      path.resolve(__dirname, '../../template/ClassTemplate')
+    );
 
     writeFile({
-      file_path: `./out/${file_content.name}.java`,
+      file_path: `${java_output_filepath}/${file_json.name}.java`,
       content: contentReplacer(template, generated_java),
     });
   } catch (e) {

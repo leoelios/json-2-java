@@ -13,3 +13,7 @@ npm install json-2-java
 ### Json to Java Class
 
 With Json-2-java, we can convert easily a json schema to java Object, for make this, follow these steps: [Json to class guide](./docs/json-to-class.md)
+
+## TODO
+
+- [ ] Create options to generate equals, hashcode, toString to class.
