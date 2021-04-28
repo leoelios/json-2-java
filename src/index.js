@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const JsonToJava = require('./core/util/class-generator');
+
 const program = require('commander');
 const package = require('../package.json');
 
@@ -17,3 +19,7 @@ commands.forEach(command => {
 });
 
 program.parse(process.argv);
+
+module.exports = {
+  JsonToJava,
+};

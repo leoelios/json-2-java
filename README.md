@@ -18,4 +18,4 @@ With Json-2-java, we can convert easily a json schema to java Object, for make t
 
 ## TODO
 
-- [ ] Create options to generate equals, hashcode, toString to class.
+Nothing... waiting next tasks.
