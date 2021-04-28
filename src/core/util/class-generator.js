@@ -1,3 +1,7 @@
+const path = require('path');
+const contentReplacer = require('../global/contentReplacer');
+const { getFileContent } = require('./file-manipulator');
+
 const _imports = new Set();
 const SPACE = '    ';
 
@@ -412,7 +416,11 @@ const processJavaClass = json_schema => {
   const { attributes, gettersAndSetters } = processAttributes(json_schema);
   const { extends_classes, interfaces } = processRelationships(json_schema);
 
-  return {
+  const template = getFileContent(
+    path.resolve(__dirname, '../../template/ClassTemplate')
+  );
+
+  return contentReplacer(template, {
     constructors: processConstructors(json_schema),
     attributes,
     internal_methods: [
@@ -432,7 +440,7 @@ const processJavaClass = json_schema => {
     name,
     methods: processMethods(json_schema),
     imports: processImports(),
-  };
+  });
 };
 
 module.exports = {

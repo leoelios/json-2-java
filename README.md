@@ -7,10 +7,16 @@ Library to convert JSON to Java code, that is, you will be able to generate JAVA
 ## Installation
 
 ```
-npm install json-2-java
+npm i json-2-java
 ```
 
 ## Usage
+
+Exist two way, by using the CLI (npm will create a symlink) or using the [API](./docs/api.md) (exported modules).
+
+### CLI
+
+To use the CLI, make sure that during the installation of the package, symlink was created successfully or try force create it with the follow command: `npm link`. After configured, use the command to access CLI: `json2java`
 
 ### Json to Java Class
 

@@ -1,4 +1,3 @@
-const path = require('path');
 const contentReplacer = require('../global/contentReplacer');
 const { processJavaClass } = require('../util/class-generator');
 const {
@@ -22,13 +21,9 @@ const action = (json_filepath, java_output_filepath) => {
     const file_json = getFileJson(json_filepath);
     const generated_java = processJavaClass(file_json);
 
-    const template = getFileContent(
-      path.resolve(__dirname, '../../template/ClassTemplate')
-    );
-
     writeFile({
       file_path: `${java_output_filepath}/${file_json.name}.java`,
-      content: contentReplacer(template, generated_java),
+      content: generated_java,
     });
   } catch (e) {
     console.error(e);
