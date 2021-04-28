@@ -112,5 +112,7 @@
   "constructorNoArgs": true,
   "defaultConstructor": {
     "content": "inicializar();"
-  }
+  },
+  "generateEqualsHashCode": true,
+  "generateToString": true
 }

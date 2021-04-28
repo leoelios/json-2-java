@@ -7,6 +7,8 @@ const {
   processRelationships,
   processMethod,
   processMethods,
+  processToString,
+  processEqualsHashCode,
   imports,
 } = require('./core/util/class-generator');
 const exampleJson = require('../example/example_to_class.json');
@@ -60,6 +62,15 @@ const testProcessMethods = () => {
   console.log(imports);
 };
 
+const testGenerateToString = () => {
+  console.log(processToString(exampleJson));
+};
+
+const testGenerateEqualsHashCode = () => {
+  console.log(processEqualsHashCode(exampleJson));
+  console.log(imports);
+};
+
 // testContentReplacer();
 // testConstructorBuilder();
 // testProcessAttribute();
@@ -67,3 +78,5 @@ const testProcessMethods = () => {
 // testProcessRelationships();
 // testProcessMethod();
 // testProcessMethods();
+// testGenerateToString();
+testGenerateEqualsHashCode();

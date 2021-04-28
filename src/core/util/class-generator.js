@@ -28,7 +28,7 @@ const extractType = artifact => {
  * @param {*} artifact
  */
 const addImport = ({ artifact, classPackage }) => {
-  if (classPackage != extractPackage(artifact)) {
+  if (classPackage != extractPackage(artifact) && artifact.indexOf('.') != -1) {
     _imports.add(artifact);
   }
 };
@@ -127,8 +127,8 @@ const processAnnotation = ({ name, parameters, package }) => {
   addImport({ artifact: name, classPackage: package });
 
   const parameters_formated = parameters
-    .map(p => `${p.name} = ${p.value}`)
-    .join(', ');
+    ? parameters.map(p => `${p.name} = ${p.value}`).join(', ')
+    : undefined;
 
   return `@${extractType(name)}${
     parameters_formated ? `(${parameters_formated})` : ''
@@ -290,6 +290,113 @@ const processMethods = ({ methods, package }) => {
     .join('\n\n');
 };
 
+/**
+ * Generate a toString method for class.
+ * @param {*} param0
+ * @returns
+ */
+const processToString = ({ attributes, package, name, generateToString }) => {
+  if (!generateToString) {
+    return '';
+  }
+
+  const line = [];
+
+  const formatedAttributes = attributes
+    .map(atr => {
+      return `"${atr.name}=" + ${atr.name}`;
+    })
+    .join(' + ", " + ');
+
+  line.push(`return "${name}{" + ${formatedAttributes} + "}";`);
+
+  return processMethod({
+    encapsulation: 'public',
+    returnType: 'java.lang.String',
+    name: 'toString',
+    package,
+    parameters: [],
+    annotations: [
+      {
+        name: 'Override',
+      },
+    ],
+    content: line.join(''),
+  });
+};
+
+/**
+ * Generate Equals and HashCode for class if this is enabled
+ * in json schema.
+ * @param {*} param0
+ */
+const processEqualsHashCode = ({
+  generateEqualsHashCode,
+  package,
+  attributes,
+  name,
+}) => {
+  if (!generateEqualsHashCode) {
+    return '';
+  }
+
+  const attributes_formatted = attributes.map(atr => atr.name).join(', ');
+  const attributes_equals_formatted = attributes
+    .map(atr => `Objects.equals(${atr.name}, that.${atr.name})`)
+    .join(' && ');
+
+  const objects_artifact = 'java.util.Objects';
+
+  addImport({
+    artifact: objects_artifact,
+    classPackage: package,
+  });
+
+  const content_equals = [];
+  content_equals.push(`if (this == o) return true;`);
+  content_equals.push(
+    `${SPACE}${SPACE}if (o == null) || getClass() != o.getClass()) return false;`
+  );
+  content_equals.push(`${SPACE}${SPACE}${name} that = (${name}) o;`);
+  content_equals.push(`${SPACE}${SPACE}return ${attributes_equals_formatted};`);
+
+  return [
+    processMethod({
+      encapsulation: 'public',
+      returnType: 'boolean',
+      name: 'equals',
+      package,
+      annotations: [
+        {
+          name: 'Override',
+        },
+      ],
+      parameters: [
+        {
+          type: 'Object',
+          name: 'o',
+        },
+      ],
+      content: content_equals.join('\n'),
+    }),
+    processMethod({
+      encapsulation: 'public',
+      returnType: 'int',
+      name: 'hashCode',
+      package,
+      parameters: [],
+      annotations: [
+        {
+          name: 'Override',
+        },
+      ],
+      content: `return ${extractType(
+        objects_artifact
+      )}.hash(${attributes_formatted});`,
+    }),
+  ].join('\n\n');
+};
+
 module.exports = {
   processConstructors,
   processAttribute,
@@ -299,5 +406,7 @@ module.exports = {
   processRelationships,
   processMethod,
   processMethods,
+  processToString,
+  processEqualsHashCode,
   imports: _imports,
 };

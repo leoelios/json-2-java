@@ -7,6 +7,8 @@ const {
   processAnnotations,
   processRelationships,
   processMethods,
+  processToString,
+  processEqualsHashCode,
 } = require('../util/class-generator');
 const {
   getFileJson,
@@ -33,7 +35,11 @@ const action = (json_filepath, java_output_filepath) => {
     return {
       constructors: processConstructors(json_schema),
       attributes,
-      internal_methods: gettersAndSetters,
+      internal_methods: [
+        processToString(json_schema),
+        processEqualsHashCode(json_schema),
+        gettersAndSetters,
+      ].join('\n\n'),
       author,
       annotations_class: processAnnotations({
         annotations: annotations_class,
