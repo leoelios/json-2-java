@@ -397,6 +397,44 @@ const processEqualsHashCode = ({
   ].join('\n\n');
 };
 
+/**
+ * Receive json schema and generate java class equivalent.
+ * @param {*} param0
+ */
+const processJavaClass = json_schema => {
+  const {
+    author,
+    annotations_class,
+    package,
+    encapsulation_class,
+    name,
+  } = json_schema;
+  const { attributes, gettersAndSetters } = processAttributes(json_schema);
+  const { extends_classes, interfaces } = processRelationships(json_schema);
+
+  return {
+    constructors: processConstructors(json_schema),
+    attributes,
+    internal_methods: [
+      processToString(json_schema),
+      processEqualsHashCode(json_schema),
+      gettersAndSetters,
+    ].join('\n\n'),
+    author,
+    annotations_class: processAnnotations({
+      annotations: annotations_class,
+      package,
+    }),
+    package,
+    encapsulation_class,
+    extends_classes,
+    interfaces,
+    name,
+    methods: processMethods(json_schema),
+    imports: processImports(),
+  };
+};
+
 module.exports = {
   processConstructors,
   processAttribute,
@@ -408,5 +446,6 @@ module.exports = {
   processMethods,
   processToString,
   processEqualsHashCode,
+  processJavaClass,
   imports: _imports,
 };
