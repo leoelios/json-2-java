@@ -127,7 +127,7 @@ const processAnnotation = ({ name, parameters, package }) => {
   addImport({ artifact: name, classPackage: package });
 
   const parameters_formated = parameters
-    ?.map(p => `${p.name} = ${p.value}`)
+    .map(p => `${p.name} = ${p.value}`)
     .join(', ');
 
   return `@${extractType(name)}${
@@ -212,6 +212,13 @@ const processImports = () => {
  * @returns
  */
 const processRelationships = ({ extends_classes, interfaces, package }) => {
+  let interfaces_generated = 'implements '.concat(
+    interfaces.map(clasz => extractType(clasz)).join(', ')
+  );
+  let extends_classes_generated = 'extends '.concat(
+    extends_classes.map(inter => extractType(inter)).join(', ')
+  );
+
   [...extends_classes, ...interfaces].forEach(element =>
     addImport({
       artifact: element,
@@ -219,11 +226,17 @@ const processRelationships = ({ extends_classes, interfaces, package }) => {
     })
   );
 
+  if (!extends_classes.length) {
+    extends_classes_generated = '';
+  }
+
+  if (!interfaces.length) {
+    interfaces_generated = '';
+  }
+
   return {
-    interfaces: interfaces.map(clasz => extractType(clasz)).join(', '),
-    extends_classes: extends_classes
-      .map(inter => extractType(inter))
-      .join(', '),
+    interfaces: interfaces_generated,
+    extends_classes: extends_classes_generated,
   };
 };
 

@@ -8,7 +8,7 @@ package #{PACKAGE}#;
  * @Author #{AUTHOR}#
  */
 #{ANNOTATIONS_CLASS}#
-#{ENCAPSULATION_CLASS}# class #{NAME}# extends #{EXTENDS_CLASSES}# implements #{INTERFACES}# {
+#{ENCAPSULATION_CLASS}# class #{NAME}# #{EXTENDS_CLASSES}# #{INTERFACES}# {
 
 #{ATTRIBUTES}#
 

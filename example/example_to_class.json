@@ -2,7 +2,7 @@
   "package": "br.com.example",
   "name": "MyClass",
   "encapsulation_class": "public",
-  "author": "Leonardo Elias de Oliveira",
+  "author": "Pizzaia Teste Elias de Oliveira",
   "annotations_class": [
     {
       "name": "br.com.annotations.MyAnotation",
@@ -12,9 +12,18 @@
           "value": "true"
         }
       ]
+    },
+    {
+      "name": "br.com.annotations.Pizzaia",
+      "parameters": [
+        {
+          "name": "programador",
+          "value": "true"
+        }
+      ]
     }
   ],
-  "extends_classes": ["br.com.methods.OtherClass", "br.com.test.JuNIT"],
+  "extends_classes": ["br.com.test.JuNIT"],
   "interfaces": ["br.com.interfaces.IMy"],
   "methods": [
     {
