@@ -204,6 +204,19 @@ const processAttributes = ({ attributes, package, serializable }) => {
     .map(attributeGenerated => attributeGenerated.attribute)
     .join('\n');
 
+  const now = new Date();
+
+  const formatDateDigits = date_int =>
+    date_int > 10 ? date_int.toString() : '0' + date_int;
+
+  const serializable_date = [
+    now.getFullYear(),
+    formatDateDigits(now.getMonth()),
+    formatDateDigits(now.getDay()),
+    formatDateDigits(now.getHours()),
+    formatDateDigits(now.getMinutes()),
+  ];
+
   return {
     gettersAndSetters,
     attributes: serializable
@@ -213,7 +226,7 @@ const processAttributes = ({ attributes, package, serializable }) => {
           type: 'long',
           annotations: [],
           package,
-          value: '2021_04_23_18_33L',
+          value: `${serializable_date.join('_')}L`,
         }).attribute.concat('\n' + generatedAttributes)
       : generatedAttributes,
   };
