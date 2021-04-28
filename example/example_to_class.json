@@ -35,6 +35,10 @@
         {
           "name": "br.com.annotations.MyAnotation",
           "parameters": []
+        },
+        {
+          "name": "br.com.annotations.MyAnotation",
+          "parameters": []
         }
       ],
       "parameters": [
@@ -114,5 +118,6 @@
     "content": "inicializar();"
   },
   "generateEqualsHashCode": true,
-  "generateToString": true
+  "generateToString": true,
+  "serializable": true
 }

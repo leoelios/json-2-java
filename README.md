@@ -24,4 +24,10 @@ With Json-2-java, we can convert easily a json schema to java Object, for make t
 
 ## TODO
 
-Nothing... waiting next tasks.
+- [x] Fix indentation on two annotations seguidas.
+- [ ] Create option for generate SERIALIZABLE attribute. (working)
+- [ ] New option to set java doc description for elements.
+- [ ] Solve relationships with generic type
+- [ ] Create option to add additional imports types
+
+<!-- Nothing... waiting next tasks. -->

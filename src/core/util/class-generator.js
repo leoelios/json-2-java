@@ -144,9 +144,12 @@ const processAnnotation = ({ name, parameters, package }) => {
  * @param {*} param0
  * @returns
  */
-const processAnnotations = ({ annotations, package }) => {
+const processAnnotations = ({ annotations, package, indentation }) => {
   return annotations
-    .map(an => processAnnotation({ ...an, package }))
+    .map(an => {
+      const process_response = processAnnotation({ ...an, package });
+      return indentation ? indentation + process_response : process_response;
+    })
     .join('\n');
 };
 
@@ -163,6 +166,7 @@ const processAttribute = ({
   setters,
   annotations,
   package,
+  value,
 }) => {
   const lines = [];
   addImport({ artifact: type, classPackage: package });
@@ -170,7 +174,11 @@ const processAttribute = ({
   annotations.forEach(annotation =>
     lines.push(`${SPACE}${processAnnotation({ ...annotation, package })}`)
   );
-  lines.push(`${SPACE}${encapsulation} ${extractType(type)} ${name};`);
+  lines.push(
+    `${SPACE}${encapsulation} ${extractType(type)} ${name}${
+      value ? ` = ${value}` : ''
+    };`
+  );
 
   lines.push(SPACE);
 
@@ -185,7 +193,7 @@ const processAttribute = ({
  * @param {*} param0
  * @returns
  */
-const processAttributes = ({ attributes, package }) => {
+const processAttributes = ({ attributes, package, serializable }) => {
   const generated = attributes.map(at => processAttribute({ ...at, package }));
 
   const gettersAndSetters = generated
@@ -198,7 +206,16 @@ const processAttributes = ({ attributes, package }) => {
 
   return {
     gettersAndSetters,
-    attributes: generatedAttributes,
+    attributes: serializable
+      ? processAttribute({
+          name: 'serialVersionUID',
+          encapsulation: 'private static final',
+          type: 'long',
+          annotations: [],
+          package,
+          value: '2021_04_23_18_33L',
+        }).attribute.concat('\n' + generatedAttributes)
+      : generatedAttributes,
   };
 };
 
@@ -283,7 +300,7 @@ const processMethod = ({
   lines.push(`${SPACE}${SPACE}${content}`);
   lines.push(`${SPACE}}`);
 
-  return SPACE.concat(processAnnotations({ annotations, package }))
+  return processAnnotations({ annotations, package, indentation: SPACE })
     .concat('\n')
     .concat(lines.join('\n'));
 };
