@@ -461,12 +461,14 @@ const processJavaClass = json_schema => {
     path.resolve(__dirname, '../../template/ClassTemplate')
   );
 
-  additionalImports.forEach(imp =>
-    addImport({
-      artifact: imp,
-      package,
-    })
-  );
+  if (additionalImports) {
+    additionalImports.forEach(imp =>
+      addImport({
+        artifact: imp,
+        package,
+      })
+    );
+  }
 
   return contentReplacer(template, {
     constructors: processConstructors(json_schema),
