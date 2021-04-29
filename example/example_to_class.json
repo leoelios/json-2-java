@@ -23,7 +23,7 @@
       ]
     }
   ],
-  "extends_classes": ["br.com.test.JuNIT"],
+  "extends_classes": ["br.com.test.JuNIT<Test>"],
   "interfaces": ["br.com.interfaces.IMy"],
   "methods": [
     {

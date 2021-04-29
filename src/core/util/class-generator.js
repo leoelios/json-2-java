@@ -28,12 +28,22 @@ const extractType = artifact => {
 };
 
 /**
+ * Remove generic type from type, example:
+ * - input: MyType<OtherType>
+ * - output: MyType
+ * @param {*} vas
+ * @returns
+ */
+const removeGeneric = vas =>
+  vas.replace(vas.substring(vas.indexOf('<'), vas.indexOf('>') + 1), '');
+
+/**
  * Add new import for java class generated.
  * @param {*} artifact
  */
 const addImport = ({ artifact, classPackage }) => {
   if (classPackage != extractPackage(artifact) && artifact.indexOf('.') != -1) {
-    _imports.add(artifact);
+    _imports.add(removeGeneric(artifact));
   }
 };
 
