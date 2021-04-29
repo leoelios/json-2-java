@@ -31,5 +31,7 @@ With Json-2-java, we can convert easily a json schema to java Object, for make t
 - [x] throws exception in methods, extract type and add import
 - [x] Divide imports and not share between different class process
 - [x] New option to set java doc description for elements.
+- [ ] Remove unnecessary spaces in classs
+- [ ] After extract generic type, import this.
 
 <!-- Nothing... waiting next tasks. -->
