@@ -30,7 +30,7 @@
       "name": "myMethod",
       "encapsulation": "public",
       "returnType": "br.com.type.String",
-      "throws": "ValidacaoException",
+      "throws": "br.com.exception.ValidacaoException",
       "annotations": [
         {
           "name": "br.com.annotations.MyAnotation",

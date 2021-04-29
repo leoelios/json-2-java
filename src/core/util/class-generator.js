@@ -323,11 +323,18 @@ const processJavaClass = json_schema => {
       .map(p => `${extractType(p.type)} ${p.name}`)
       .join(', ');
 
+    if (throws) {
+      addImport({
+        artifact: throws,
+        classPackage: package,
+      });
+    }
+
     lines.push(
       `${SPACE}${encapsulation} ${extractType(
         returnType
       )} ${name}(${formated_parameters}) ${
-        (throws && `throws ${throws}`) || ''
+        (throws && `throws ${extractType(throws)}`) || ''
       } {`
     );
 
