@@ -448,7 +448,7 @@ const processJavaClass = json_schema => {
     const content_equals = [];
     content_equals.push(`if (this == o) return true;`);
     content_equals.push(
-      `${SPACE}${SPACE}if (o == null) || getClass() != o.getClass()) return false;`
+      `${SPACE}${SPACE}if ((o == null) || getClass() != o.getClass()) return false;`
     );
     content_equals.push(`${SPACE}${SPACE}${name} that = (${name}) o;`);
     content_equals.push(
