@@ -1,6 +1,7 @@
 {
   "package": "br.com.example",
   "name": "MyClass",
+  "javadoc": "Class automatic TESTE with json-2-java.",
   "encapsulation_class": "public",
   "author": "Pizzaia Teste Elias de Oliveira",
   "annotations_class": [
@@ -28,6 +29,7 @@
   "methods": [
     {
       "name": "myMethod",
+      "javadoc": "Testing javadoc myMethod funcionality<br>Proxima linha testando",
       "encapsulation": "public",
       "returnType": "br.com.type.String",
       "throws": "br.com.exception.ValidacaoException",
@@ -73,6 +75,7 @@
       "name": "myOwnAttribute",
       "encapsulation": "private",
       "type": "br.com.type.String",
+      "javadoc": "Qualquer coisa",
       "getters": true,
       "setters": true,
       "annotations": [

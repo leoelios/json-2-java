@@ -186,9 +186,17 @@ const processJavaClass = json_schema => {
     annotations,
     package,
     value,
+    javadoc,
   }) => {
     const lines = [];
     addImport({ artifact: type, classPackage: package });
+
+    lines.push(
+      processJavaDoc({
+        javadoc,
+        indentation: SPACE,
+      })
+    );
 
     annotations.forEach(annotation =>
       lines.push(`${SPACE}${processAnnotation({ ...annotation, package })}`)
@@ -295,6 +303,26 @@ const processJavaClass = json_schema => {
     };
   };
 
+  const processJavaDoc = ({ javadoc, indentation, author }) => {
+    if (!javadoc) {
+      return '';
+    }
+    const lines = javadoc.split('<br>');
+    const final_lines = [];
+
+    final_lines.push(indentation + '/**');
+    final_lines.push(lines.map(l => indentation + ' * ' + l).join('\n'));
+
+    if (author) {
+      final_lines.push(' * ');
+      final_lines.push(indentation + ` * @author ${author}`);
+    }
+
+    final_lines.push(indentation + ' */');
+
+    return final_lines.join('\n');
+  };
+
   const processMethod = ({
     encapsulation,
     returnType,
@@ -304,6 +332,7 @@ const processJavaClass = json_schema => {
     annotations,
     package,
     throws,
+    javadoc,
   }) => {
     const lines = [];
 
@@ -341,7 +370,9 @@ const processJavaClass = json_schema => {
     lines.push(`${SPACE}${SPACE}${content}`);
     lines.push(`${SPACE}}`);
 
-    return processAnnotations({ annotations, package, indentation: SPACE })
+    return processJavaDoc({ javadoc, indentation: SPACE })
+      .concat('\n')
+      .concat(processAnnotations({ annotations, package, indentation: SPACE }))
       .concat('\n')
       .concat(lines.join('\n'));
   };
@@ -468,6 +499,7 @@ const processJavaClass = json_schema => {
     encapsulation_class,
     name,
     additionalImports,
+    javadoc,
   } = json_schema;
   const { attributes, gettersAndSetters } = processAttributes(json_schema);
   const { extends_classes, interfaces } = processRelationships(json_schema);
@@ -505,6 +537,11 @@ const processJavaClass = json_schema => {
     name,
     methods: processMethods(json_schema),
     imports: processImports(),
+    class_java_doc: processJavaDoc({
+      javadoc,
+      indentation: '',
+      author,
+    }),
   });
 };
 

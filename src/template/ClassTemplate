@@ -2,11 +2,7 @@ package #{PACKAGE}#;
 
 #{IMPORTS}#
 
-/**
- * Class automatic generated with json-2-java.
- * 
- * @Author #{AUTHOR}#
- */
+#{CLASS_JAVA_DOC}#
 #{ANNOTATIONS_CLASS}#
 #{ENCAPSULATION_CLASS}# class #{NAME}# #{EXTENDS_CLASSES}# #{INTERFACES}# {
 
