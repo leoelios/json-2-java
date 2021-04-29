@@ -119,5 +119,10 @@
   },
   "generateEqualsHashCode": true,
   "generateToString": true,
-  "serializable": true
+  "serializable": true,
+  "additionalImports": [
+    "br.com.type.Test",
+    "br.com.ta.Testa2",
+    "br.com.outro.ProfessionalClass"
+  ]
 }

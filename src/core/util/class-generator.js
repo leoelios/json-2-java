@@ -452,12 +452,20 @@ const processJavaClass = json_schema => {
     package,
     encapsulation_class,
     name,
+    additionalImports,
   } = json_schema;
   const { attributes, gettersAndSetters } = processAttributes(json_schema);
   const { extends_classes, interfaces } = processRelationships(json_schema);
 
   const template = getFileContent(
     path.resolve(__dirname, '../../template/ClassTemplate')
+  );
+
+  additionalImports.forEach(imp =>
+    addImport({
+      artifact: imp,
+      package,
+    })
   );
 
   return contentReplacer(template, {
