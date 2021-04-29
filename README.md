@@ -28,6 +28,8 @@ With Json-2-java, we can convert easily a json schema to java Object, for make t
 - [x] Create option for generate SERIALIZABLE attribute. (working)
 - [x] Solve relationships with generic type
 - [x] Create option to add additional imports types
+- [ ] throws exception in methods, extract type and add import
+- [ ] Divide imports and not share between different class process
 - [ ] New option to set java doc description for elements.
 
 <!-- Nothing... waiting next tasks. -->
